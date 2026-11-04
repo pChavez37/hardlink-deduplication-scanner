@@ -38,3 +38,10 @@ The package exports two async functions from the root:
 - `linkDuplicates(groups: string[][]): Promise<LinkResult>` — hardlinks duplicates.
 
 `LinkResult` has the shape `{ linked: number, bytesSaved: number, skipped: number }`.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
